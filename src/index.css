@@ -5,3 +5,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.sider {
+  height: 100vh;
+  overflow: auto;
+  position: fixed;
+  left: 0;
+}
+
+.content {
+  height: 100vh;
+}

@@ -1,12 +1,17 @@
 import React from "react"
 import { Layout } from "antd"
 
+// Defines the layout of the application with
 const AppLayout = () => {
   return (
     <Layout>
-      <Layout.Header>Header</Layout.Header>
-      <Layout.Content>Content</Layout.Content>
-      <Layout.Footer>Footer</Layout.Footer>
+      <Layout.Sider className="sider">
+        <i class="fa-duotone fa-key"></i>
+        Sider
+      </Layout.Sider>
+      <Layout>
+        <Layout.Content className="content">Content</Layout.Content>
+      </Layout>
     </Layout>
   )
 }

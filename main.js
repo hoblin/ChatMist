@@ -5,7 +5,7 @@ const { ipcMain } = require("electron")
 const sqlite3 = require("sqlite3").verbose()
 
 const setupDatabase = require("./database")
-const setupChatIPC = require("./controllers/chatController")
+const setupChatIPC = require("./controllers/chatController.js")
 const setupMessageIPC = require("./controllers/messageController")
 const setupSystemPromptIPC = require("./controllers/systemPromptController")
 
