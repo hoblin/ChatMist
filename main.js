@@ -8,6 +8,7 @@ const setupDatabase = require("./database")
 const setupChatIPC = require("./controllers/chatController.js")
 const setupMessageIPC = require("./controllers/messageController")
 const setupSystemPromptIPC = require("./controllers/systemPromptController")
+const setupStore = require("./controllers/storeController")
 
 const dbPath = path.join(app.getAppPath(), "db/chatmist.db")
 
@@ -46,6 +47,7 @@ function createWindow() {
 }
 
 app.on("ready", () => {
+  setupStore()
   setupDatabase(db)
   createWindow()
   setupChatIPC(db)

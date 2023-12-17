@@ -1,5 +1,5 @@
 import React from "react"
-import ReactDOM from "react-dom"
+import { createRoot } from "react-dom/client"
 import { ConfigProvider } from "antd"
 import theme from "./theme"
 
@@ -19,4 +19,4 @@ function App() {
   )
 }
 
-ReactDOM.render(<App />, document.getElementById("root"))
+createRoot(document.getElementById("root")).render(<App />)
