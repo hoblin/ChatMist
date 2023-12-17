@@ -1,14 +1,6 @@
 // database.js
-const sqlite3 = require("sqlite3").verbose()
 
-function setupDatabase() {
-  let db = new sqlite3.Database("./db/chatmist.db", (err) => {
-    if (err) {
-      console.error(err.message)
-    }
-    console.log("Connected to the chatmist database.")
-  })
-
+function setupDatabase(db) {
   db.serialize(() => {
     db.run(`CREATE TABLE IF NOT EXISTS system_prompts(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -31,13 +23,6 @@ function setupDatabase() {
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY(chat_id) REFERENCES chats(id)
     )`)
-  })
-
-  db.close((err) => {
-    if (err) {
-      console.error(err.message)
-    }
-    console.log("Close the database connection.")
   })
 }
 

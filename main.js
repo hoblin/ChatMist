@@ -9,7 +9,15 @@ const setupChatIPC = require("./controllers/chatController.js")
 const setupMessageIPC = require("./controllers/messageController")
 const setupSystemPromptIPC = require("./controllers/systemPromptController")
 
-let db = new sqlite3.Database("./db/chatmist.db")
+const dbPath = path.join(app.getAppPath(), "db/chatmist.db")
+
+let db = new sqlite3.Database(dbPath, (err) => {
+  if (err) {
+    console.error(err.message)
+  }
+  console.log("Connected to the chatmist database.")
+})
+
 let mainWindow
 
 function createWindow() {
@@ -25,7 +33,7 @@ function createWindow() {
   const startUrl =
     process.env.ELECTRON_START_URL ||
     url.format({
-      pathname: path.join(__dirname, "dist/index.html"),
+      pathname: path.join(__dirname, "chatmist/index.html"),
       protocol: "file:",
       slashes: true,
     })
@@ -38,7 +46,7 @@ function createWindow() {
 }
 
 app.on("ready", () => {
-  setupDatabase()
+  setupDatabase(db)
   createWindow()
   setupChatIPC(db)
   setupMessageIPC(db)

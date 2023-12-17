@@ -7,8 +7,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # Build directories
+chatmist
 dist
-out
 
 # Electron-builder output
 *.dmg
