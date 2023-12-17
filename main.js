@@ -1,8 +1,16 @@
-const { app, BrowserWindow } = require("electron");
-const path = require("path");
-const url = require("url");
+const { app, BrowserWindow } = require("electron")
+const path = require("path")
+const url = require("url")
+const { ipcMain } = require("electron")
+const sqlite3 = require("sqlite3").verbose()
 
-let mainWindow;
+const setupDatabase = require("./database")
+const setupChatIPC = require("./controllers/chatController")
+const setupMessageIPC = require("./controllers/messageController")
+const setupSystemPromptIPC = require("./controllers/systemPromptController")
+
+let db = new sqlite3.Database("./db/chatmist.db")
+let mainWindow
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -12,7 +20,7 @@ function createWindow() {
       nodeIntegration: true,
       contextIsolation: false,
     },
-  });
+  })
 
   const startUrl =
     process.env.ELECTRON_START_URL ||
@@ -20,25 +28,31 @@ function createWindow() {
       pathname: path.join(__dirname, "dist/index.html"),
       protocol: "file:",
       slashes: true,
-    });
+    })
 
-  mainWindow.loadURL(startUrl);
+  mainWindow.loadURL(startUrl)
 
   mainWindow.on("closed", function () {
-    mainWindow = null;
-  });
+    mainWindow = null
+  })
 }
 
-app.on("ready", createWindow);
+app.on("ready", () => {
+  setupDatabase()
+  createWindow()
+  setupChatIPC(db)
+  setupMessageIPC(db)
+  setupSystemPromptIPC(db)
+})
 
 app.on("window-all-closed", function () {
   if (process.platform !== "darwin") {
-    app.quit();
+    app.quit()
   }
-});
+})
 
 app.on("activate", function () {
   if (mainWindow === null) {
-    createWindow();
+    createWindow()
   }
-});
+})

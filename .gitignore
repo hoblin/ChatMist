@@ -22,3 +22,6 @@ out
 
 # VS Code settings
 .vscode
+
+# Database file
+db/chatmist.db
