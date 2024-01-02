@@ -43,6 +43,7 @@
   },
   "homepage": "https://github.com/hoblin/ChatMist#readme",
   "dependencies": {
+    "@mistralai/mistralai": "^0.0.7",
     "antd": "^5.12.2",
     "axios": "^1.6.2",
     "electron-store": "^8.1.0",
